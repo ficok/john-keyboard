@@ -1,0 +1,159 @@
+units:
+  # Proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # Padding Variables
+  px: kx + 2
+  py: ky + 2
+points:
+  zones:
+    # The primary 6x4 key matrix, plus 3 modifiers.
+    matrix:
+      # Choc spacing
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        # Hide the first two mods and the last mod.
+        # Provide a Sofle-like column stagger.
+        macro:
+          key:
+            splay: 4
+          rows.mod.skip: true
+        outer:
+          key:
+            splay: -4
+          rows.mod.skip: true
+        pinky:
+          rows.mod.skip: true
+        ring:
+          key.stagger: 5
+        middle:
+          key.stagger: 2.5
+        index:
+          key.stagger: -2.5
+        inner:
+          key.stagger: -2.5
+      rows:      
+        bottom:
+        home:
+        top:
+    mods:
+      key:
+        padding: ky
+        spread: 1.1kx
+      anchor:
+        ref: matrix_ring_bottom
+        shift: [0, -25]
+      columns:
+        ring_mod:
+          key:
+            rotate: 5
+            shift: [-2, -2]
+        middle_mod:
+        index_mod:
+        inner_mod:
+          key:
+            width: 1.5kx
+            asym: clone
+            shift: [8,0]
+
+    # Thumb cluster for Layer and Space keys.
+  # Mirror keyboard halves with a moderate rotation.
+  rotate: -4
+  mirror: &mirror
+    ref: matrix_inner_top
+    distance: 1.5kx
+# outlines:
+#   raw:
+#     - what: rectangle
+#       where: true
+#       size: [px, py]
+#   keys:
+#     - what: rectangle
+#       where: true
+#       size: [kx-0.5,ky-0.5]
+#   board:
+#     - what: polygon
+#       operation: stack
+#       points:
+#         - ref: matrix_macro_top
+#           shift: [-0.5px, 0.5px]
+#         - ref: matrix_outer_top
+#           shift: [-0.5px,0.5py]
+#         - ref: matrix_ring_top
+#           shift: [-0.5px,0.5py]
+#         - ref: matrix_middle_top
+#           shift: [-0.5px,0.5py]
+#         - ref: matrix_middle_top
+#           shift: [0.5px,0.5py]
+#         - ref: matrix_inner_top
+#           shift: [0.5px,0.5py]
+#         - ref: mirror_matrix_inner_top
+#           shift: [0.5px,0.5py]
+#         - ref: mirror_matrix_middle_top
+#           shift: [0.5px,0.5py]
+#         - ref: mirror_matrix_middle_top
+#           shift: [-0.5px,0.5py]
+#         - ref: mirror_matrix_ring_top
+#           shift: [-0.5px,0.5py]
+#         - ref: mirror_matrix_outer_top
+#           shift: [-0.5px,0.5py]
+#         - ref: mirror_matrix_macro_top
+#           shift: [-0.5px,0.5py]
+#         - ref: mirror_matrix_macro_bottom
+#           shift: [-0.5px,-0.5py]
+#         - ref: mirror_matrix_outer_bottom
+#           shift: [-0.5px,-0.7py]
+#         - ref: mirror_matrix_middle_mod
+#           shift: [-0.5px,-0.5py]
+#         - ref: mirror_thumbs_shft_cluster
+#           shift: [-1px,-0.3py]
+#         - ref: mirror_thumbs_space_cluster
+#           shift: [-2.1px,-0.2py]
+#         - ref: thumbs_space_cluster
+#           shift: [-2.1px,-0.2py]
+#         - ref: thumbs_shft_cluster
+#           shift: [-1px,-0.3py]
+#         - ref: matrix_middle_mod
+#           shift: [-0.5px,-0.5py]
+#         - ref: matrix_outer_bottom
+#           shift: [-0.5px,-0.7py]
+#         - ref: matrix_macro_bottom
+#           shift: [-0.5px, -0.5py]
+#       fillet: 2.5
+#   combo:
+#     - name: board
+#     - operation: subtract
+#       name: keys
+# pcbs:
+#   bob:
+#     outlines:
+#       main:
+#         outline: board
+#     footprints:
+#       choc_hotswap:
+#         what: choc
+#         where: true
+#         params:
+#           keycaps: true
+#           reverse: false
+#           hotswap: true
+#           from: "{{column_net}}"
+#           to: "{{colrow}}"
+#       diode:
+#         what: diode
+#         where: true
+#         params:
+#           from: "{{colrow}}"
+#           to: "{{row_net}}"
+#         adjust:
+#           shift: [0, -5]
+#       promicro:
+#         what: promicro
+#         params:
+#           orientation: "down"
+#         where:
+#           ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
+#           shift: [0,0]
+#           rotate: -90
