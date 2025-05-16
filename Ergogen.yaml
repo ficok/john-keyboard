@@ -1,25 +1,36 @@
 units:
   # Proxy Spacing Variables
-  kx: cx
-  ky: cy
+  kx: u
+  ky: u
   # Padding Variables
+  # Proveri ovo, da li ce da bude prevelik razmak izmedju keycap-ova
   px: kx + 2
   py: ky + 2
 points:
   zones:
-    # The primary 6x4 key matrix, plus 3 modifiers.
     matrix:
-      # Choc spacing
+      anchor:
+        shift: [100,-100]
+      # MX spacing - namesti
       key:
         padding: 1ky
         spread: 1kx
       columns:
-        # Hide the first two mods and the last mod.
-        # Provide a Sofle-like column stagger.
         outer:
           rows.mod.skip: true
-
+          rows:
+            top:
+              width: 1.5kx
+              shift: [-5,]
+            home:
+              shift: [5,]
+            bottom:
+              width: 1.5kx
+              shift: [-5,]
+          key:
+            stagger: 5
         pinky:
+          key.stagger: 3
           rows.mod.skip: true
         ring:
           key.stagger: 5
@@ -41,7 +52,7 @@ points:
         ref: matrix_ring_top
         shift: [-18,25]
       columns:
-        outer_fn:
+        pinky_fn:
           key.shift: [,-5]
         ring_fn:
           key.shift: [,]
@@ -70,103 +81,109 @@ points:
             width: 1.5kx
             asym: clone
             shift: [8,0]
-
-    # Thumb cluster for Layer and Space keys.
-  # Mirror keyboard halves with a moderate rotation.
   rotate: -4
   mirror: &mirror
     ref: matrix_inner_top
-    distance: 2.5kx
-# outlines:
-#   raw:
-#     - what: rectangle
-#       where: true
-#       size: [px, py]
-#   keys:
-#     - what: rectangle
-#       where: true
-#       size: [kx-0.5,ky-0.5]
-#   board:
-#     - what: polygon
-#       operation: stack
-#       points:
-#         - ref: matrix_macro_top
-#           shift: [-0.5px, 0.5px]
-#         - ref: matrix_outer_top
-#           shift: [-0.5px,0.5py]
-#         - ref: matrix_ring_top
-#           shift: [-0.5px,0.5py]
-#         - ref: matrix_middle_top
-#           shift: [-0.5px,0.5py]
-#         - ref: matrix_middle_top
-#           shift: [0.5px,0.5py]
-#         - ref: matrix_inner_top
-#           shift: [0.5px,0.5py]
-#         - ref: mirror_matrix_inner_top
-#           shift: [0.5px,0.5py]
-#         - ref: mirror_matrix_middle_top
-#           shift: [0.5px,0.5py]
-#         - ref: mirror_matrix_middle_top
-#           shift: [-0.5px,0.5py]
-#         - ref: mirror_matrix_ring_top
-#           shift: [-0.5px,0.5py]
-#         - ref: mirror_matrix_outer_top
-#           shift: [-0.5px,0.5py]
-#         - ref: mirror_matrix_macro_top
-#           shift: [-0.5px,0.5py]
-#         - ref: mirror_matrix_macro_bottom
-#           shift: [-0.5px,-0.5py]
-#         - ref: mirror_matrix_outer_bottom
-#           shift: [-0.5px,-0.7py]
-#         - ref: mirror_matrix_middle_mod
-#           shift: [-0.5px,-0.5py]
-#         - ref: mirror_thumbs_shft_cluster
-#           shift: [-1px,-0.3py]
-#         - ref: mirror_thumbs_space_cluster
-#           shift: [-2.1px,-0.2py]
-#         - ref: thumbs_space_cluster
-#           shift: [-2.1px,-0.2py]
-#         - ref: thumbs_shft_cluster
-#           shift: [-1px,-0.3py]
-#         - ref: matrix_middle_mod
-#           shift: [-0.5px,-0.5py]
-#         - ref: matrix_outer_bottom
-#           shift: [-0.5px,-0.7py]
-#         - ref: matrix_macro_bottom
-#           shift: [-0.5px, -0.5py]
-#       fillet: 2.5
-#   combo:
-#     - name: board
-#     - operation: subtract
-#       name: keys
-# pcbs:
-#   bob:
-#     outlines:
-#       main:
-#         outline: board
-#     footprints:
-#       choc_hotswap:
-#         what: choc
-#         where: true
-#         params:
-#           keycaps: true
-#           reverse: false
-#           hotswap: true
-#           from: "{{column_net}}"
-#           to: "{{colrow}}"
-#       diode:
-#         what: diode
-#         where: true
-#         params:
-#           from: "{{colrow}}"
-#           to: "{{row_net}}"
-#         adjust:
-#           shift: [0, -5]
-#       promicro:
-#         what: promicro
-#         params:
-#           orientation: "down"
-#         where:
-#           ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
-#           shift: [0,0]
-#           rotate: -90
+    distance: 3kx
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_outer_top
+          shift: [-0.5px, 0.5px]
+        - ref: fn_pinky_fn
+          shift: [-0.5px, 0.5px]
+        - ref: fn_ring_fn
+          shift: [-0.5px, 0.5px]
+        - ref: fn_middle_fn
+          shift: [-0.5px, 0.5px]
+        - ref: fn_index_fn
+          shift: [0.5px, 0.5px]
+        - ref: fn_inner_fn
+          shift: [0.5px,0.5py]
+        - ref: mirror_fn_inner_fn
+          shift: [0.5px,0.5py]
+        - ref: mirror_fn_index_fn
+          shift: [0.5px,0.5py]
+        - ref: mirror_fn_middle_fn
+          shift: [0.5px,0.5py]
+        - ref: mirror_fn_ring_fn
+          shift: [-0.5px,0.5py]
+        - ref: mirror_fn_pinky_fn
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_outer_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_outer_bottom
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_mods_ring_mod
+          shift: [-0.5px,-0.7py]
+        - ref: mods_ring_mod
+          shift: [-0.5px,-0.7py]
+        - ref: matrix_outer_bottom
+          shift: [-0.5px,-0.7py]
+        - ref: matrix_outer_bottom
+          shift: [-0.5px, -0.5py]
+      fillet: 2.5
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  john:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [fn_inner_fn, mirror_fn_inner_fn]
+          shift: [0,-12]
+          rotate: -90
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+        where:
+          ref.aggregate.parts: [matrix_inner_home, mirror_matrix_inner_home]
+          shift: [-6,-23]
+          rotate: 90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
+          shift: [-10, -25]
+          rotate: -90
