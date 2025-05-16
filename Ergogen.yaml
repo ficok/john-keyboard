@@ -16,14 +16,9 @@ points:
       columns:
         # Hide the first two mods and the last mod.
         # Provide a Sofle-like column stagger.
-        macro:
-          key:
-            splay: 4
-          rows.mod.skip: true
         outer:
-          key:
-            splay: -4
           rows.mod.skip: true
+
         pinky:
           rows.mod.skip: true
         ring:
@@ -38,6 +33,24 @@ points:
         bottom:
         home:
         top:
+    fn:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_ring_top
+        shift: [-18,25]
+      columns:
+        outer_fn:
+          key.shift: [,-5]
+        ring_fn:
+          key.shift: [,]
+        middle_fn:
+          key.shift: [,2.5]          
+        index_fn:
+          key.shift: [,]          
+        inner_fn:
+          key.shift: [,-2.5]          
     mods:
       key:
         padding: ky
@@ -63,7 +76,7 @@ points:
   rotate: -4
   mirror: &mirror
     ref: matrix_inner_top
-    distance: 1.5kx
+    distance: 2.5kx
 # outlines:
 #   raw:
 #     - what: rectangle
