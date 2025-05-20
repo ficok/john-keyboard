@@ -1,0 +1,182 @@
+units:
+  # Proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # Padding Variables
+  px: kx + 2
+  py: ky + 2
+points:
+  zones:
+    # The primary 6x4 key matrix, plus 3 modifiers.
+    matrix:
+      anchor:
+        shift: [100,-100]
+      # Choc spacing
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        outer:
+          key.stagger: 2.5
+        pinky:
+          key.stagger: 2.5
+          rows.mod.skip: true
+        ring:
+          key.stagger: 2.5
+        middle:
+          key.stagger: 2.5
+        index:
+          key.stagger: -2.5
+        inner:
+          key.stagger: -2.5
+        far_inner:
+          key.stagger: -2.5
+      rows:      
+        bottom:
+        home:
+        top:
+    fn:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_pinky_top
+        shift: [0,25]
+      columns:
+        pinky_fn:
+          key.shift: [,-2.5]
+        ring_fn:
+          key.shift: [,]
+        middle_fn:
+          key.shift: [,2.5]          
+        index_fn:
+          key.shift: [,]    
+        inner_fn:
+          key.shift: [,-2.5]
+    mods:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_pinky_bottom
+        shift: [0,-15]
+      columns:
+        pinky_mod:
+          key:
+            width: 1.5kx
+            shift: [-15,-5]
+            rotate: -5
+        ring_mod:
+          key.shift: [,]
+        middle_mod:
+          key.shift: [,2.5]          
+        index_mod:
+          key.shift: [,]    
+        inner_mod:
+          key:
+            width: 1.5kx
+            shift: [15,-5]
+            rotate: 5
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_outer_top
+          shift: [-.6px, .6px]
+        - ref: matrix_ring_top
+          shift: [-1.5px, .4px]
+        - ref: fn_pinky_fn
+          shift: [-0.6px, .6px]
+        - ref: fn_ring_fn
+          shift: [0px, .6px]
+        - ref: fn_middle_fn
+          shift: [0px, .6px]
+        - ref: fn_index_fn
+          shift: [0px, .6px]
+        - ref: fn_inner_fn
+          shift: [.7px, .6px]
+        - ref: matrix_inner_top
+          shift: [.7px, .8px]
+        - ref: matrix_far_inner_top
+          shift: [1.8px, .9px]
+        - ref: matrix_far_inner_bottom
+          shift: [1.8px, -.05px]
+        - ref: matrix_inner_bottom
+          shift: [1.8px, -0.2px]
+        - ref: mods_inner_mod
+          shift: [1px, -.6px]
+        - ref: mods_index_mod
+          shift: [0px, -.7px]
+        - ref: mods_middle_mod
+          shift: [0px, -.8px]
+        - ref: mods_ring_mod
+          shift: [0px, -.7px]
+        - ref: mods_pinky_mod
+          shift: [-.7px, -.6px]
+        - ref: matrix_outer_bottom
+          shift: [-.6px, -1px]
+
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  john:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [matrix_far_inner_home]
+          shift: [25,15]
+          rotate: -90
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+        where:
+          ref.aggregate.parts: [matrix_far_inner_home]
+          shift: [31,-3]
+          rotate: -90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref.aggregate.parts: [matrix_far_inner_home]
+          shift: [15,-12]
+          rotate: -90
