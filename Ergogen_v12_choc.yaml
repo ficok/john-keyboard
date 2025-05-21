@@ -29,49 +29,73 @@ points:
               shift: [-5,]
           key:
             stagger: 5
+            column_net: P15
         pinky:
-          key.stagger: 3
           rows.mod.skip: true
+          key:
+            stagger: 5
+            column_net: P14
         ring:
-          key.stagger: 5
+          key:
+            stagger: 5
+            column_net: P16
         middle:
-          key.stagger: 2.5
+          key:
+            stagger: 2.5
+            column_net: P6
         index:
-          key.stagger: -2.5
+          key:
+            stagger: -2.5
+            column_net: P7
         inner:
-          key.stagger: -2.5
+          key:
+            stagger: -2.5
+            column_net: P8
       rows:      
         bottom:
+          row_net: P19
+          mirror.row_net: P4
         home:
-        top:   
+          row_net: P20
+          mirror.row_net: P0
+        top:
+          row_net: P21
+          mirror.row_net: P1
     mods:
       key:
         padding: ky
         spread: 1.1kx
       anchor:
         ref: matrix_ring_bottom
-        shift: [0, -22]
+        shift: [0.4kx, -22]
       columns:
         pinky_mod:
           key:
-            rotate: -15
+            rotate: 15
             shift: [15,-1]
+            column_net: P6
         ring_mod:
           key:
-            rotate: 5
+            rotate: -85
             shift: [10, -23]
+            column_net: P16
         middle_mod:
-        index_mod:
-        inner_mod:
           key:
+            column_net: P7
+        index_mod:
+          key:
+            rotate: 75
+            shift: [5,0]
             width: 1.5kx
-            asym: clone
-            shift: [1,-8]
-            rotate: -95
-  rotate: -6
+            column_net: P8
+      rows:
+        thumbs:
+          row_net: P18
+          mirror.row_net: P5
+  rotate: -9
   mirror: &mirror
     ref: matrix_inner_top
-    distance: 3.5kx
+    distance: 70
 outlines:
   raw:
     - what: rectangle
@@ -113,13 +137,13 @@ outlines:
           shift: [-0.6px,-0.6py]
         - ref: mirror_matrix_pinky_bottom
           shift: [-1.2px, -1px]
-        - ref: mirror_mods_pinky_mod
-          shift: [-0.5px,-.6py]
-        - ref: mirror_mods_ring_mod
-          shift: [-.5px, -.6py]
-        - ref: mods_ring_mod
-          shift: [-.5px, -.6py]
-        - ref: mods_pinky_mod
+        - ref: mirror_mods_pinky_mod_thumbs
+          shift: [-.5px,-.6py]
+        - ref: mirror_mods_ring_mod_thumbs
+          shift: [.8px, -.6py]
+        - ref: mods_ring_mod_thumbs
+          shift: [.8px, -.6py]
+        - ref: mods_pinky_mod_thumbs
           shift: [-0.5px,-.6py]
         - ref: matrix_pinky_bottom
           shift: [-1.2px, -1px,]
@@ -169,7 +193,7 @@ pcbs:
           SCL: P3
         where:
           ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
-          shift: [6,0]
+          shift: [6,-40]
           rotate: -90
       reset:
         what: button
@@ -178,5 +202,5 @@ pcbs:
           to: RST
         where:
           ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
-          shift: [-21,-1]
+          shift: [0,-55]
           rotate: -90
