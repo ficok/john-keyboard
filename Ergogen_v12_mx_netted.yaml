@@ -160,8 +160,8 @@ pcbs:
       main:
         outline: board
     footprints:
-      choc_hotswap:
-        what: choc
+      mx_hotswap:
+        what: mx
         where: true
         params:
           keycaps: true
